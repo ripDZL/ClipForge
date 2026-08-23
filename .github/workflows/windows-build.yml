@@ -1,0 +1,44 @@
+name: Windows Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up patched .NET 8
+        uses: actions/setup-dotnet@v6.0.0
+        with:
+          dotnet-version: 8.0.423
+
+      - name: Build, audit, and publish ClipForge
+        shell: powershell
+        run: .\scripts\Build-ClipForge.ps1
+
+      - name: Upload Windows x64 package
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ClipForge-win-x64
+          path: |
+            publish/ClipForge-win-x64.zip
+            publish/ClipForge-win-x64.zip.sha256
+          if-no-files-found: error
+          retention-days: 14

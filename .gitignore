@@ -1,23 +1,29 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
+# Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build/publish output
+publish/
+build-last.log
+
+# FFmpeg payload downloaded and verified by the setup script
+src/ClipForge/Tools/ffmpeg/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.log
+*.clipforge-partial.*
+
+# OS/editor files
+Thumbs.db
+Desktop.ini
+.DS_Store
 .vscode/
-#Cache folder
-.alcache/
-#Symbols folder
-.alpackages/
-#Snapshots folder
-.snapshots/
-#Testing Output folder
-.output/
-#Extension App-file
-*.app
-#Rapid Application Development File
-rad.json
-#Translation Base-file
-*.g.xlf
-#License-files
-*.bclicense
-*.flf
-#Test results file
-TestResults.xml
+.idea/
