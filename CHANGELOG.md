@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2 — FFmpeg bootstrap fix
+
+- Updated the pinned FFmpeg Essentials dependency to 9.0.2.
+- Replaced the removed gyan.dev `/packages/` URL with the versioned GyanD GitHub release asset.
+- Added a gyan.dev current-release fallback that is accepted only when its SHA-256 exactly matches the pinned 9.0.2 archive.
+- Updated the pinned archive SHA-256 to `60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba`.
+- Improved FFmpeg download errors so failed sources are reported clearly.
+
 ## 0.4.1 — security/code audit
 
 - Restricted FFmpeg/ffprobe discovery to bundled app-local executables; removed working-directory/PATH execution fallback.

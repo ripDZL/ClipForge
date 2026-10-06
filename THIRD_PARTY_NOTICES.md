@@ -17,7 +17,7 @@ ClipForge relies on third-party software. This file is informational and is not 
 
 ## FFmpeg / ffprobe
 
-ClipForge's setup script currently downloads the pinned Gyan Windows essentials build of FFmpeg 9.0.1 and records the archive source and SHA-256 in `Tools/ffmpeg/SOURCE.txt`.
+ClipForge's setup script currently downloads the pinned Gyan Windows essentials build of FFmpeg 9.0.2 and records the archive source and SHA-256 in `Tools/ffmpeg/SOURCE.txt`.
 
 Gyan's build page states that its static builds are GPLv3. Binary redistributors are responsible for satisfying the applicable FFmpeg/build licensing terms, including providing required notices/source information where applicable. ClipForge invokes FFmpeg as a separate process; this notice does not make a legal determination about license compatibility for a particular distribution model.
 

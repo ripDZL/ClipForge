@@ -12,7 +12,7 @@ $Publish = Join-Path $PublishRoot 'ClipForge-win-x64'
 $BuildLog = Join-Path $Root 'build-last.log'
 $MinimumSdk = [Version]'8.0.423'
 
-Write-Host 'ClipForge v0.4.1 - Audited Build + Publish' -ForegroundColor Cyan
+Write-Host 'ClipForge v0.4.2 - Audited Build + Publish' -ForegroundColor Cyan
 
 function Get-CompatibleDotNet8Sdk([string]$DotnetExe) {
     if (-not $DotnetExe -or -not (Test-Path -LiteralPath $DotnetExe)) { return $null }
@@ -40,7 +40,7 @@ if (-not $Sdk) {
 if (-not $Sdk) {
     throw @"
 A security-patched .NET 8 SDK was not found.
-ClipForge v0.4.1 requires .NET 8 SDK $MinimumSdk or newer in the 8.x line.
+ClipForge v0.4.2 requires .NET 8 SDK $MinimumSdk or newer in the 8.x line.
 Install the current .NET 8 SDK from Microsoft, then run Build.bat again.
 The build intentionally no longer downloads and executes a remote installer script.
 "@

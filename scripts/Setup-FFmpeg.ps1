@@ -13,10 +13,11 @@ $Ffprobe = Join-Path $Bin 'ffprobe.exe'
 $SourceMarker = Join-Path $Tools 'SOURCE.txt'
 
 # Pinned release: never execute an unverified moving "latest" archive.
-$FfmpegVersion = '9.0.1'
+$FfmpegVersion = '9.0.2'
 $ArchiveName = "ffmpeg-$FfmpegVersion-essentials_build.zip"
-$Url = "https://www.gyan.dev/ffmpeg/builds/packages/$ArchiveName"
-$ExpectedSha256 = 'fec81ae03971d9dd4be3ebe02e263bd2ec1d789483f931bdba5f5715e65da2e9'
+$PrimaryUrl = "https://github.com/GyanD/codexffmpeg/releases/download/$FfmpegVersion/$ArchiveName"
+$FallbackUrl = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+$ExpectedSha256 = '60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba'
 
 Write-Host "ClipForge - FFmpeg Setup (pinned $FfmpegVersion)" -ForegroundColor Cyan
 
@@ -51,12 +52,39 @@ New-Item -ItemType Directory -Force -Path $Temp, $Extract, $Bin | Out-Null
 try {
     Write-Host "Downloading pinned FFmpeg $FfmpegVersion..."
     $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Zip
 
-    $ActualSha256 = (Get-FileHash -LiteralPath $Zip -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($ActualSha256 -ne $ExpectedSha256) {
-        throw "FFmpeg archive SHA-256 mismatch. Expected $ExpectedSha256 but received $ActualSha256. Nothing was installed."
+    $DownloadUrl = $null
+    $downloadErrors = New-Object System.Collections.Generic.List[string]
+    foreach ($candidateUrl in @($PrimaryUrl, $FallbackUrl)) {
+        try {
+            Remove-Item -LiteralPath $Zip -Force -ErrorAction SilentlyContinue
+            Write-Host "  Source: $candidateUrl"
+            Invoke-WebRequest -UseBasicParsing -Uri $candidateUrl -OutFile $Zip -MaximumRedirection 10
+
+            $ActualSha256 = (Get-FileHash -LiteralPath $Zip -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($ActualSha256 -ne $ExpectedSha256) {
+                throw "Downloaded archive hash was $ActualSha256; expected $ExpectedSha256 for FFmpeg $FfmpegVersion."
+            }
+
+            $DownloadUrl = $candidateUrl
+            break
+        }
+        catch {
+            $downloadErrors.Add("$candidateUrl -> $($_.Exception.Message)")
+        }
     }
+
+    if (-not $DownloadUrl) {
+        $details = $downloadErrors -join [Environment]::NewLine
+        throw @"
+Unable to download and verify pinned FFmpeg $FfmpegVersion.
+Tried:
+$details
+
+No FFmpeg files were installed.
+"@
+    }
+
     Write-Host 'SHA-256 verified.' -ForegroundColor Green
 
     # Validate archive paths before Expand-Archive to prevent path traversal if a
@@ -100,7 +128,7 @@ try {
 ClipForge FFmpeg dependency record
 Archive: $ArchiveName
 Version: $FfmpegVersion
-Source: $Url
+Source: $DownloadUrl
 Archive SHA-256: $ExpectedSha256
 ffmpeg.exe SHA-256: $InstalledFfmpegSha256
 ffprobe.exe SHA-256: $InstalledFfprobeSha256

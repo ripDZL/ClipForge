@@ -4,7 +4,7 @@
 
 ClipForge is a lightweight Windows video editor designed for fast, phone-style editing without the overhead of a full nonlinear editor. Open or drop a local video, make common edits, preview picture changes live, and export.
 
-> Current development version: **0.4.1**
+> Current development version: **0.4.2**
 
 ## Current features
 
@@ -32,7 +32,7 @@ ClipForge is a lightweight Windows video editor designed for fast, phone-style e
 
 ## Security baseline
 
-Version 0.4.1 hardens the media and build pipeline:
+Version 0.4.2 hardens the media and build pipeline:
 
 - FFmpeg and ffprobe are executed **only from ClipForge's app-local tools directory**, never from the working directory or `PATH`.
 - Native DLL search is hardened before LibVLC initialization so the working directory/PATH are excluded from implicit DLL resolution.
@@ -41,7 +41,7 @@ Version 0.4.1 hardens the media and build pipeline:
 - FFmpeg/ffprobe input protocols are allow-listed to `file,crypto,data` to prevent network retrieval through media input URLs.
 - LibVLC preview starts with network metadata fetching disabled.
 - ffprobe and encoder detection have timeouts and process-tree cancellation.
-- FFmpeg setup pins version **9.0.1**, verifies the vendor-published SHA-256, and validates ZIP paths before extraction.
+- FFmpeg setup pins version **9.0.2**, verifies the vendor-published SHA-256, and validates ZIP paths before extraction.
 - NuGet audit checks direct and transitive packages; high/critical advisories fail the build.
 - Dependabot checks NuGet and GitHub Actions dependencies weekly.
 - The app manifest requests normal-user `asInvoker` privileges only.
