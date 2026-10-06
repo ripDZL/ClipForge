@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.3 — CI package-audit fix
+
+- Fixed the Windows build workflow by removing the unsupported `--no-restore` option from `dotnet list package --vulnerable --include-transitive` under .NET 8.
+- The explicit restore still runs immediately before the vulnerability report, so dependency auditing remains enabled.
+
 ## 0.4.2 — FFmpeg bootstrap fix
 
 - Updated the pinned FFmpeg Essentials dependency to 9.0.2.

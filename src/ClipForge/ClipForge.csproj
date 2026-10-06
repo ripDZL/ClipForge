@@ -8,9 +8,9 @@
     <PlatformTarget>x64</PlatformTarget>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyName>ClipForge</AssemblyName>
-    <Version>0.4.2</Version>
-    <FileVersion>0.4.2.0</FileVersion>
-    <AssemblyVersion>0.4.2.0</AssemblyVersion>
+    <Version>0.4.3</Version>
+    <FileVersion>0.4.3.0</FileVersion>
+    <AssemblyVersion>0.4.3.0</AssemblyVersion>
     <RootNamespace>ClipForge</RootNamespace>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <ApplicationManifest>app.manifest</ApplicationManifest>

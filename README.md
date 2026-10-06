@@ -4,7 +4,7 @@
 
 ClipForge is a lightweight Windows video editor designed for fast, phone-style editing without the overhead of a full nonlinear editor. Open or drop a local video, make common edits, preview picture changes live, and export.
 
-> Current development version: **0.4.2**
+> Current development version: **0.4.3**
 
 ## Current features
 
@@ -32,7 +32,7 @@ ClipForge is a lightweight Windows video editor designed for fast, phone-style e
 
 ## Security baseline
 
-Version 0.4.2 hardens the media and build pipeline:
+Version 0.4.3 hardens the media and build pipeline:
 
 - FFmpeg and ffprobe are executed **only from ClipForge's app-local tools directory**, never from the working directory or `PATH`.
 - Native DLL search is hardened before LibVLC initialization so the working directory/PATH are excluded from implicit DLL resolution.
