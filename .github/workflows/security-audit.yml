@@ -30,7 +30,7 @@ jobs:
 
       - name: Report vulnerable direct and transitive packages
         shell: powershell
-        run: dotnet list .\src\ClipForge\ClipForge.csproj package --vulnerable --include-transitive --no-restore
+        run: dotnet list .\src\ClipForge\ClipForge.csproj package --vulnerable --include-transitive
 
       - name: Compile audited source
         shell: powershell
